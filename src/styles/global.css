@@ -34,7 +34,7 @@ body {
   background-attachment: fixed;
 }
 
-/* Mechanism: the staggered wordmark, three steps sharing the E. */
+/* The wordmark, one line, two blues meeting in the E. */
 .wordmark {
   display: inline-flex;
   align-items: baseline;
@@ -43,9 +43,9 @@ body {
   line-height: 1;
 }
 .wordmark > span { display: inline-block; }
-.wordmark .a { color: var(--blue); transform: translateY(-0.18em); }
+.wordmark .a { color: var(--blue); }
 .wordmark .e { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.wordmark .b { color: var(--blue-light); transform: translateY(0.18em); }
+.wordmark .b { color: var(--blue-light); }
 
 /* Cards, one per section. */
 .card {
