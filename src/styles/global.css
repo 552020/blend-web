@@ -2,24 +2,22 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 :root {
-  --bg: #faf8f3;
-  --fg: #1b1b1b;
-  --muted: #6a6a66;
-  --rule: #d9d5cb;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #151515;
-    --fg: #e6e3dc;
-    --muted: #9b9994;
-    --rule: #333330;
-  }
+  --bg: #060606;
+  --fg: #ececec;
+  --muted: #9a9a9a;
+  --card: #141414;
+  --card-border: #262626;
+  --inset: #0b0b0b;
+  --blue: #2f6bff;
+  --blue-light: #8fb0ff;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
 }
 
 html {
@@ -27,21 +25,63 @@ html {
   color: var(--fg);
 }
 
-/* Mechanism: wide comparison tables scroll sideways instead of breaking the page. */
+/* Mechanism: the blue glow behind the page, fixed so it does not scroll away. */
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, #1b3fc4 0%, #0b1538 50%, transparent 80%) no-repeat,
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Mechanism: the staggered wordmark, three steps sharing the E. */
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.wordmark > span { display: inline-block; }
+.wordmark .a { color: var(--blue); transform: translateY(-0.18em); }
+.wordmark .e { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wordmark .b { color: var(--blue-light); transform: translateY(0.18em); }
+
+/* Cards, one per section. */
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 1.25rem;
+}
+.card > h2 { margin-top: 0.25rem; }
+.card > :last-child { margin-bottom: 0; }
+
+/* Tables sit in an inset panel and scroll sideways instead of breaking the page. */
 .prose table {
   display: block;
   overflow-x: auto;
+  background: var(--inset);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
   font-size: 0.82em;
-  line-height: 1.35;
+  line-height: 1.4;
 }
+.prose table th, .prose table td { min-width: 9rem; vertical-align: top; }
+.prose table th:first-child, .prose table td:first-child { min-width: 11rem; }
+.prose table thead th { color: var(--muted); font-weight: 500; }
 
-.prose table th,
-.prose table td {
-  min-width: 9rem;
-  vertical-align: top;
+/* Verdict dots, added by the script in the layout. */
+.dot {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 999px;
+  margin-right: 0.45em;
+  vertical-align: 0.05em;
 }
-
-.prose table th:first-child,
-.prose table td:first-child {
-  min-width: 11rem;
-}
+.dot-green { background: var(--green); }
+.dot-yellow { background: var(--yellow); }
+.dot-red { background: var(--red); }

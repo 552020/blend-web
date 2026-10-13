@@ -19,35 +19,48 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
-      rel="stylesheet"
-    />
   </head>
-  <body class="font-serif antialiased">
-    <header class="px-4 sm:px-8 pt-6 pb-4 flex flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-[var(--rule)]">
-      <a href="/" class="text-2xl font-semibold tracking-tight no-underline">Blend</a>
-      <nav class="flex gap-x-6 text-lg">
+  <body class="font-sans antialiased">
+    <header class="px-4 sm:px-8 pt-8 pb-6 flex flex-wrap items-center gap-x-8 gap-y-4">
+      <a href="/" class="wordmark text-3xl no-underline" aria-label="Blend">
+        <span class="a">BL</span><span class="e">E</span><span class="b">ND</span>
+      </a>
+      <nav class="flex flex-wrap gap-2 text-sm">
         {nav.map(([href, label]) => (
           <a
             href={href}
-            class:list={['no-underline', path === href ? 'underline underline-offset-4' : 'text-[var(--muted)] hover:text-[var(--fg)]']}
+            class:list={[
+              'no-underline rounded-lg px-3 py-1.5 border',
+              path === href
+                ? 'bg-neutral-200 text-black border-neutral-200'
+                : 'bg-[#1b1b1b] text-neutral-300 border-[#2a2a2a] hover:bg-[#242424] hover:text-white',
+            ]}
           >
             {label}
           </a>
         ))}
       </nav>
     </header>
-    <main class="px-4 sm:px-8 py-10 prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-medium prose-a:underline-offset-4">
+    <main class="px-4 sm:px-8 pb-10 prose prose-invert max-w-none prose-headings:font-semibold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-[var(--blue-light)] prose-a:underline-offset-4 prose-strong:text-white">
       <slot />
     </main>
-    <footer class="px-4 sm:px-8 py-8 text-[var(--muted)] border-t border-[var(--rule)] text-base">
+    <footer class="px-4 sm:px-8 py-8 text-[var(--muted)] text-sm border-t border-[var(--card-border)]">
       <p>
         Written in October 2026. Code of this site: <a href="https://github.com/552020/blend-web">552020/blend-web</a>.
         The project: <a href="https://github.com/552020/blend">552020/blend</a>.
+        First try of this page, in serif: <a href="/lab/paper">/lab/paper</a>.
       </p>
     </footer>
+    <script>
+      // Verdict dots on the comparison tables: green for true, yellow for partly, red for hype and false.
+      for (const td of document.querySelectorAll('td')) {
+        const t = td.textContent.trim();
+        let c = null;
+        if (/^True/.test(t)) c = 'green';
+        else if (/^(Partly|Half)/.test(t)) c = 'yellow';
+        else if (/^(Hype|False|Misleading)/.test(t)) c = 'red';
+        if (c) td.insertAdjacentHTML('afterbegin', `<span class="dot dot-${c}"></span>`);
+      }
+    </script>
   </body>
 </html>

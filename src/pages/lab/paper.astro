@@ -1,0 +1,7 @@
+---
+import Paper from '../../layouts/Paper.astro';
+import { Content, frontmatter } from '../index.md';
+---
+<Paper frontmatter={{ ...frontmatter, title: `${frontmatter.title} (first try, serif)` }}>
+  <Content />
+</Paper>

@@ -1,0 +1,53 @@
+---
+import '../styles/paper.css';
+
+const { frontmatter } = Astro.props;
+const title = frontmatter?.title ?? 'Blend';
+const description = frontmatter?.description ?? '';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  ['/', 'Position'],
+  ['/vetkeys', 'vetKeys'],
+  ['/blend', 'Blend'],
+  ['/sources', 'Sources'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-serif antialiased">
+    <header class="px-4 sm:px-8 pt-6 pb-4 flex flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-[var(--rule)]">
+      <a href="/" class="text-2xl font-semibold tracking-tight no-underline">Blend</a>
+      <nav class="flex gap-x-6 text-lg">
+        {nav.map(([href, label]) => (
+          <a
+            href={href}
+            class:list={['no-underline', path === href ? 'underline underline-offset-4' : 'text-[var(--muted)] hover:text-[var(--fg)]']}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+    </header>
+    <main class="px-4 sm:px-8 py-10 prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-medium prose-a:underline-offset-4">
+      <slot />
+    </main>
+    <footer class="px-4 sm:px-8 py-8 text-[var(--muted)] border-t border-[var(--rule)] text-base">
+      <p>
+        Written in October 2026. Code of this site: <a href="https://github.com/552020/blend-web">552020/blend-web</a>.
+        The project: <a href="https://github.com/552020/blend">552020/blend</a>.
+      </p>
+    </footer>
+  </body>
+</html>
