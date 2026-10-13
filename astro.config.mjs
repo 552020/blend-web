@@ -12,6 +12,11 @@ function sectionize() {
         out.push(current);
       } else if (current) {
         current.children.push(node);
+      } else if (node.type === 'element' && node.tagName === 'h1') {
+        out.push(node);
+      } else if (node.type === 'element') {
+        current = { type: 'element', tagName: 'section', properties: { className: ['card', 'lead'] }, children: [node] };
+        out.push(current);
       } else {
         out.push(node);
       }

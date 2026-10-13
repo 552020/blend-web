@@ -85,3 +85,19 @@ body {
 .dot-green { background: var(--green); }
 .dot-yellow { background: var(--yellow); }
 .dot-red { background: var(--red); }
+
+/* Article pages: a continuous text, no boxes, two newspaper columns on wide screens
+   so lines stay readable while the text keeps the whole width. */
+main.article { font-size: 1.125rem; line-height: 1.6; }
+main.article .card { background: none; border: 0; padding: 0; margin: 0 0 2.5rem; }
+main.article .card > h2 { font-size: 1.6rem; margin: 0 0 1rem; column-span: all; }
+main.article .card > table { column-span: all; margin: 1.25rem 0; }
+main.article .card > p, main.article .card > ol, main.article .card > ul { break-inside: avoid-column; }
+main.article .card > :first-child { margin-top: 0; }
+@media (min-width: 1100px) {
+  main.article { font-size: 1.2rem; }
+  main.article .card { column-count: 2; column-gap: 3.5rem; }
+}
+@media (min-width: 1700px) {
+  main.article .card { column-count: 3; }
+}
