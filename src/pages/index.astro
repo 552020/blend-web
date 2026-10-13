@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+
+const steps = [
+  ['Sign in', 'The sender signs in with an Ethereum wallet. The canister verifies the signature and issues a session.'],
+  ['Encrypt in the browser', 'The browser fetches the canister’s vetKD master public key and encrypts the file to the recipient’s address with identity-based encryption. Only ciphertext leaves the browser.'],
+  ['Pay in USDC', 'The sender pays the fee on Base. The canister checks the transaction before storing the file.'],
+  ['Recipient signs in', 'The recipient signs in with the wallet that owns the address. The canister asks the subnet to derive the key for that address, encrypted to a transport key the recipient’s browser generated.'],
+  ['Decrypt', 'The browser decrypts the key, then the file.'],
+];
+
+const analysis = [
+  ['/position', 'Position', 'Sharing an encrypted document was never the problem. The problem is sharing the key. vetKeys against the other ways of doing it, in one table.'],
+  ['/vetkeys', 'vetKeys', 'What the primitive guarantees and what it does not: claims against reality, the trust model, adoption as of October 2026.'],
+  ['/blend', 'Blend', 'What the project is, how a transfer works, and what our review of the code found.'],
+];
+---
+<Base frontmatter={{ title: 'Blend', description: 'Send encrypted files to any Ethereum address, paying in USDC. Built on vetKeys on the Internet Computer.' }} plain>
+  <section class="pt-10 pb-14 sm:pt-16 sm:pb-20 text-center">
+    <div class="wordmark text-7xl sm:text-8xl md:text-9xl" aria-hidden="true">
+      <span class="a">BL</span><span class="e">E</span><span class="b">ND</span>
+    </div>
+    <h1 class="sr-only">Blend</h1>
+    <p class="mt-8 text-2xl sm:text-3xl text-[var(--blue-light)] font-medium tracking-tight">
+      Send encrypted files to any Ethereum address. Pay in USDC.
+    </p>
+    <p class="mt-4 text-base sm:text-lg text-[var(--muted)]">
+      The recipient needs no account anywhere. Encrypted to the address itself, on the Internet Computer, with vetKeys.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/blend" class="rounded-lg bg-neutral-200 text-black px-4 py-2 text-sm font-medium">How it works</a>
+      <a href="/position" class="rounded-lg bg-[#1b1b1b] border border-[#2a2a2a] text-neutral-200 px-4 py-2 text-sm hover:bg-[#242424]">Read the analysis</a>
+      <a href="https://github.com/552020/blend" class="rounded-lg bg-[#1b1b1b] border border-[#2a2a2a] text-neutral-200 px-4 py-2 text-sm hover:bg-[#242424]">Code on GitHub</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-md">
+    <div class="card">
+      <p class="font-semibold text-white mb-3">Recipient</p>
+      <input type="text" disabled placeholder="Ethereum address" class="w-full rounded-lg bg-[#1b1b1b] border border-[#2a2a2a] px-3 py-2.5 text-sm text-neutral-400 placeholder:text-neutral-500" />
+      <button type="button" disabled class="mt-3 w-full rounded-lg bg-neutral-500/60 text-neutral-200 py-2.5 text-sm font-medium cursor-default">Set recipient</button>
+      <ul class="mt-4 rounded-xl bg-[var(--inset)] border border-[var(--card-border)] px-4 py-3 text-sm text-neutral-300 space-y-1">
+        <li>Identity-based encryption to the recipient&rsquo;s address</li>
+        <li>Decrypts only after signing in with the wallet that owns it</li>
+        <li>Fee paid in USDC on Base</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card mt-10">
+    <h2 class="text-2xl font-semibold text-white mb-5">How a transfer works</h2>
+    <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {steps.map(([name, text], i) => (
+        <li class="rounded-xl bg-[var(--inset)] border border-[var(--card-border)] p-4">
+          <p class="text-sm text-[var(--muted)]">{i + 1}</p>
+          <p class="font-medium text-white mt-1">{name}</p>
+          <p class="text-sm text-neutral-300 mt-2">{text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="grid gap-5 md:grid-cols-2">
+    <div class="card">
+      <h2 class="text-2xl font-semibold text-white mb-3">What it costs</h2>
+      <p class="text-neutral-300">The fee is the canister&rsquo;s own cost passed on: storage per gigabyte-day, the key derivation, the RPC call, plus the bridge commission. For a 10&nbsp;MB file kept one day that is about two US cents, almost all of it the derivation. Files expire after the number of days the sender chooses.</p>
+    </div>
+    <div class="card">
+      <h2 class="text-2xl font-semibold text-white mb-3">Who can read your file</h2>
+      <p class="text-neutral-300">The recipient, by design. Also by design: a two-thirds quorum of the 34 nodes of the subnet that holds the master key, and whoever controls the canister. Blend is not end-to-end in the Signal sense. It is identity-based encryption with a decentralised custodian, and we say so. The <a href="/position" class="text-[var(--blue-light)] underline underline-offset-4">position page</a> compares this with the alternatives.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="text-2xl font-semibold text-white mb-5">The analysis</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {analysis.map(([href, name, text]) => (
+        <a href={href} class="block rounded-xl bg-[var(--inset)] border border-[var(--card-border)] p-4 no-underline hover:border-neutral-500">
+          <p class="font-medium text-white">{name}</p>
+          <p class="text-sm text-neutral-300 mt-2">{text}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="text-2xl font-semibold text-white mb-3">Team and lineage</h2>
+    <p class="text-neutral-300">Built by Daniil Tolmacov, Stefano Lombardo and Léonard Mangallon for the WCHL 2025 qualification round, on Kristofer Lund&rsquo;s <a href="https://github.com/kristoferlund/send_file_to_eth_demo" class="text-[var(--blue-light)] underline underline-offset-4">send_file_to_eth demo</a> and his <a href="https://github.com/kristoferlund/ic-siwe" class="text-[var(--blue-light)] underline underline-offset-4">ic-siwe</a>. The name contracts &ldquo;bumping Lund&rsquo;s Base Send&rdquo;.</p>
+  </section>
+</Base>

@@ -5,8 +5,9 @@ const { frontmatter } = Astro.props;
 const title = frontmatter?.title ?? 'Blend';
 const description = frontmatter?.description ?? '';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const plain = Astro.props.plain ?? false;
 const nav = [
-  ['/', 'Position'],
+  ['/position', 'Position'],
   ['/vetkeys', 'vetKeys'],
   ['/blend', 'Blend'],
   ['/sources', 'Sources'],
@@ -41,14 +42,14 @@ const nav = [
         ))}
       </nav>
     </header>
-    <main class="px-4 sm:px-8 pb-10 prose prose-invert max-w-none prose-headings:font-semibold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-[var(--blue-light)] prose-a:underline-offset-4 prose-strong:text-white">
+    <main class:list={["px-4 sm:px-8 pb-10", plain ? "" : "prose prose-invert max-w-none prose-headings:font-semibold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-[var(--blue-light)] prose-a:underline-offset-4 prose-strong:text-white"]}>
       <slot />
     </main>
     <footer class="px-4 sm:px-8 py-8 text-[var(--muted)] text-sm border-t border-[var(--card-border)]">
       <p>
         Written in October 2026. Code of this site: <a href="https://github.com/552020/blend-web">552020/blend-web</a>.
         The project: <a href="https://github.com/552020/blend">552020/blend</a>.
-        First try of this page, in serif: <a href="/lab/paper">/lab/paper</a>.
+        First try of the position page, in serif: <a href="/lab/paper">/lab/paper</a>.
       </p>
     </footer>
     <script>

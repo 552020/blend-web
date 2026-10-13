@@ -60,4 +60,4 @@ The one DFINITY product using it is the Notes feature of the [Oisy wallet](https
 
 ## Our position
 
-The primitive is sound and the people who built it are serious; the escrow is the design, not a flaw. The use-cases material oversells it by describing a custodial system in the language of a non-custodial one. vetKeys cannot be used without moving the backend onto ICP, so every sale is a re-platforming, and the security story then starts with explaining the NNS to someone who asked for a feature. The honest pitch is secrets for programs that already live on ICP. For everything else, the [table](/) says which tool is enough.
+The primitive is sound and the people who built it are serious; the escrow is the design, not a flaw. The use-cases material oversells it by describing a custodial system in the language of a non-custodial one. vetKeys cannot be used without moving the backend onto ICP, so every sale is a re-platforming, and the security story then starts with explaining the NNS to someone who asked for a feature. The honest pitch is secrets for programs that already live on ICP. For everything else, the [table](/position) says which tool is enough.
