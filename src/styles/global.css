@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:root {
+  --bg: #faf8f3;
+  --fg: #1b1b1b;
+  --muted: #6a6a66;
+  --rule: #d9d5cb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #151515;
+    --fg: #e6e3dc;
+    --muted: #9b9994;
+    --rule: #333330;
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Mechanism: wide comparison tables scroll sideways instead of breaking the page. */
+.prose table {
+  display: block;
+  overflow-x: auto;
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+
+.prose table th,
+.prose table td {
+  min-width: 9rem;
+  vertical-align: top;
+}
+
+.prose table th:first-child,
+.prose table td:first-child {
+  min-width: 11rem;
+}
